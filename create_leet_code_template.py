@@ -1,7 +1,5 @@
 import sys
 
-print(sys.argv)
-
 
 def create_leet_code_template(file_name: str) -> None:
     f = open(f"{file_name}.js", "w")
