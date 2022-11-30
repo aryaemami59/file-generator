@@ -1,9 +1,9 @@
-from clean_react_vite_app import clean_react_vite_app
-from clean_react_vite_main import clean_react_vite_main
-from clean_react_index_html import clean_react_index_html
-from create_custom_hooks import create_custom_hooks
-from create_folder_react_ts import create_folder_react_ts
-from custom_hooks import useComponentStatus, useValueUpdateLogger
+from react.clean_react_vite_app import clean_react_vite_app
+from react.clean_react_vite_main import clean_react_vite_main
+from react.clean_react_index_html import clean_react_index_html
+from react.create_custom_hooks import create_custom_hooks
+from react.create_folder_react_ts import create_folder_react_ts
+from react.custom_hooks import useComponentStatus, useValueUpdateLogger
 from write_to_file import write_to_all_files
 import os
 

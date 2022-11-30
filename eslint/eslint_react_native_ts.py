@@ -1,4 +1,4 @@
-from eslint_react_ts import eslint_react_ts
+from eslint.eslint_react_ts import eslint_react_ts
 
 eslint_react_native_ts = eslint_react_ts
 eslint_react_native_ts["env"]["react-native/react-native"] = True

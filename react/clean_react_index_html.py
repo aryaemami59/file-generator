@@ -1,4 +1,4 @@
-clean_react_index_html = """<!DOCTYPE html>
+clean_react_index_html: str = """<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
