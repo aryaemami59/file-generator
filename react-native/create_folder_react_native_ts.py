@@ -1,5 +1,5 @@
-from react.create_folder import create_folder
-from react.create_folder_react_ts import react_dirs
+from create_folder import create_folder
+from create_folder_react_ts import react_dirs
 
 rn_dirs = react_dirs + ["screens", "styles"]
 

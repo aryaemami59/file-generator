@@ -1,8 +1,8 @@
-from react.create_custom_hooks import create_custom_hooks
+from create_custom_hooks import create_custom_hooks
 from clean_rn_app import clean_rn_app
 from create_folder_react_native_ts import create_folder_react_native_ts
-from write_to_file import write_to_all_files
-from react.custom_hooks import useComponentStatus, useValueUpdateLogger
+from write_to_all_files import write_to_all_files
+from custom_hooks import useComponentStatus, useValueUpdateLogger
 
 
 def clean_expo() -> None:

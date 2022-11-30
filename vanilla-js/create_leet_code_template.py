@@ -1,4 +1,4 @@
-from write_to_file import write_to_all_files
+from eslint.write_to_all_files import write_to_all_files
 import sys
 
 
