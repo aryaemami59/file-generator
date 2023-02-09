@@ -1,7 +1,52 @@
-from create_function import create_files
-from all_tags import bootstrap_5_js_cdn, jquery_36_cdn, bootstrap_5_css_cdn, html_script_defer, html_styles
+import path
+import sys
+
+folder = path.Path(__file__).abspath()
+sys.path.append(folder.parent.parent)
+from write_to_all_files import write_to_all_files
+from styles_css import styles_css
+from empty_script_js import empty_script_js
+
+index_html = (
+    "index.html",
+    """<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+      defer></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+      defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous" />
+    <script
+      src="script.js"
+      defer></script>
+    <link
+      rel="stylesheet"
+      href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+""",
+)
 
 
 if __name__ == "__main__":
-    create_files([bootstrap_5_js_cdn, jquery_36_cdn,
-                 bootstrap_5_css_cdn, html_script_defer, html_styles])
+    write_to_all_files([index_html, styles_css, empty_script_js])

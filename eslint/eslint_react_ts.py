@@ -45,7 +45,7 @@ eslint_react_ts = {
         "@typescript-eslint/naming-convention": [0],
         "@typescript-eslint/no-floating-promises": [0],
         "@typescript-eslint/no-throw-literal": [0],
-        "no-console": 0,
+        "no-console": [0],
         "no-param-reassign": [2, {"props": False}],
         "prefer-arrow-functions/prefer-arrow-functions": [
             2,

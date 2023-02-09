@@ -1,4 +1,6 @@
-clean_rn_app = """import { StatusBar } from "expo-status-bar";
+clean_rn_app = (
+    "App.tsx",
+    """import { StatusBar } from "expo-status-bar";
 import type { FC } from "react";
 import { memo } from "react";
 import { Text, View } from "react-native";
@@ -14,4 +16,5 @@ const App: FC = () => (
 );
 
 export default memo(App);
-"""
+""",
+)

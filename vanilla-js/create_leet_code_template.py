@@ -1,16 +1,30 @@
-from eslint.write_to_all_files import write_to_all_files
+import path
 import sys
+
+folder = path.Path(__file__).abspath()
+sys.path.append(folder.parent.parent)
+from write_to_all_files import write_to_all_files
 
 
 def create_leet_code_template(file_name: str) -> None:
-    write_to_all_files(
-        [
-            (
-                f"{file_name}.js",
-                "// Description:\n\n\n// Challenge:\n\n\n// Alternate method:\n\n\n// testing:\n\n\n",
-            )
-        ]
+    my_js_file = (
+        f"{file_name}.js",
+        """// Description:
+
+
+// Challenge:
+
+
+// Alternate method:
+
+
+// testing:
+
+
+""",
     )
+
+    write_to_all_files([my_js_file])
 
 
 if __name__ == "__main__":

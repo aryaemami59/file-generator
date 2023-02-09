@@ -1,4 +1,13 @@
-clean_react_index_html: str = """<!DOCTYPE html>
+import path
+import sys
+
+folder = path.Path(__file__).abspath()
+sys.path.append(folder.parent.parent)
+from create_file import HTML_File
+
+clean_react_index_html = HTML_File(
+    "index",
+    """<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,4 +23,5 @@ clean_react_index_html: str = """<!DOCTYPE html>
       src="/src/main.tsx"></script>
   </body>
 </html>
-"""
+""",
+)
