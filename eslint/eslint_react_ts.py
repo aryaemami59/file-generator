@@ -1,21 +1,5 @@
 eslint_react_ts = {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": ["./tsconfig.json"],
-        "sourceType": "module",
-        "ecmaVersion": "latest",
-        "ecmaFeatures": {"jsx": True},
-        "tsconfigRootDir": "./",
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "prefer-arrow",
-        "react-perf",
-        "prettier",
-        "react-redux",
-        "jsx-a11y",
-    ],
+    "env": {"browser": True, "es2022": True},
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
@@ -33,32 +17,27 @@ eslint_react_ts = {
         "plugin:@typescript-eslint/strict",
         "plugin:prettier/recommended",
     ],
-    "env": {"browser": True, "es2022": True},
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {"jsx": True},
+        "ecmaVersion": "latest",
+        "project": ["./tsconfig.json"],
+        "sourceType": "module",
+        "tsconfigRootDir": "./",
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "prefer-arrow",
+        "react-perf",
+        "prettier",
+        "react-redux",
+        "jsx-a11y",
+    ],
+    "root": True,
     "rules": {
-        "prettier/prettier": [
-            2,
-            {
-                "bracketSameLine": True,
-                "arrowParens": "avoid",
-                "singleAttributePerLine": True,
-                "parser": "typescript",
-            },
-        ],
-        "react/function-component-definition": [
-            2,
-            {
-                "namedComponents": "arrow-function",
-                "unnamedComponents": "arrow-function",
-            },
-        ],
-        "no-console": [0],
-        "no-param-reassign": [2, {"props": False}],
-        "prefer-arrow/prefer-arrow-functions": [2],
-        "@typescript-eslint/no-floating-promises": [0],
-        "react/jsx-props-no-spreading": [0],
+        "@typescript-eslint/consistent-type-definitions": [2, "type"],
         "@typescript-eslint/consistent-type-imports": [2],
-        "react/require-default-props": [0],
-        "@typescript-eslint/no-throw-literal": [0],
         "@typescript-eslint/naming-convention": [
             2,
             {"format": ["PascalCase"], "selector": ["typeLike"]},
@@ -74,15 +53,36 @@ eslint_react_ts = {
             },
             {
                 "format": None,
-                "selector": ["objectLiteralProperty"],
                 "modifiers": ["requiresQuotes"],
+                "selector": ["objectLiteralProperty"],
             },
             {"format": ["camelCase"], "selector": ["parameter"]},
         ],
-        "@typescript-eslint/consistent-type-definitions": [2, "type"],
+        "@typescript-eslint/no-floating-promises": [0],
+        "@typescript-eslint/no-throw-literal": [0],
+        "no-console": [0],
+        "no-param-reassign": [2, {"props": False}],
+        "prefer-arrow/prefer-arrow-functions": [2],
+        "prettier/prettier": [
+            2,
+            {
+                "arrowParens": "avoid",
+                "bracketSameLine": True,
+                "parser": "typescript",
+                "singleAttributePerLine": True,
+            },
+        ],
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function",
+            },
+        ],
+        "react/jsx-props-no-spreading": [0],
+        "react/require-default-props": [0],
     },
     "settings": {"react": {"version": "detect"}},
-    "root": True,
 }
 
 
