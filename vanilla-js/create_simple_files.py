@@ -6,9 +6,9 @@ sys.path.append(folder.parent.parent)
 from write_to_all_files import write_to_all_files
 from styles_css import styles_css
 from empty_script_js import empty_script_js
+from create_file import Index_HTML_File
 
-index_html = (
-    "index.html",
+index_html = Index_HTML_File(
     """<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,9 +23,30 @@ index_html = (
   </head>
   <body></body>
 </html>
-""",
+"""
 )
+
+# index_html = (
+#     "index.html",
+#     """<!DOCTYPE html>
+# <html lang="en">
+#   <head>
+#     <meta charset="UTF-8" />
+#     <meta
+#       http-equiv="X-UA-Compatible"
+#       content="IE=edge" />
+#     <meta
+#       name="viewport"
+#       content="width=device-width, initial-scale=1.0" />
+#     <title>Document</title>
+#   </head>
+#   <body></body>
+# </html>
+# """,
+# )
 
 
 if __name__ == "__main__":
-    write_to_all_files([index_html, styles_css, empty_script_js])
+    for v in (index_html, empty_script_js):
+        v.create_file()
+    write_to_all_files([styles_css])

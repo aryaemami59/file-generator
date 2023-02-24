@@ -11,7 +11,6 @@ eslint_vanilla = {
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@typescript-eslint/strict",
-        "prettier/prettier",
         "plugin:prettier/recommended",
     ],
     "overrides": [],
@@ -24,7 +23,6 @@ eslint_vanilla = {
     },
     "plugins": [
         "@typescript-eslint",
-        "eslint-plugin-prettier",
         "prefer-arrow-functions",
         "prettier",
         "jsx-a11y",

@@ -6,3 +6,7 @@ from settings import settings
 def create_settings() -> None:
     create_folder([".vscode"])
     write_to_all_files([settings])
+
+
+if __name__ == "__main__":
+    create_settings()

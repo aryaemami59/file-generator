@@ -1,4 +1,4 @@
-settings = (
+settings: tuple[str, str] = (
     ".vscode/settings.json",
     """{
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
