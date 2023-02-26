@@ -1,125 +1,278 @@
-from create_file import Custom_Hook
+from create_file import Custom_Hook, Logger_Hook
 
-useMounted = Custom_Hook(
-    "useMounted",
-    """import type { FC } from "react";
-import { useDebugValue, useEffect } from "react";
-import type { AnyObject, EmptyObject } from "../types/missingTypes";
+useComponentDidMount = Custom_Hook(
+    "useComponentDidMount",
+    """import { useEffect, useRef } from "react";
 
 /**
- * Checks when component mounts and unmounts
- * @param component Component that we are checking mount and unmount status for
+ * Runs an effect when the component mounts.
+ * @template {() => void} T T must be a function.
+ * @param {T} callback Callback function that gets invoked when the component mounts.
  */
+const useComponentDidMount = <T extends () => void>(callback: T) => {
+  const callbackRef = useRef(callback);
+  const memoizedCB = callbackRef.current;
 
-const useMounted = <P extends AnyObject = EmptyObject>(component: FC<P>) => {
-  const { name } = component;
-  useDebugValue(name, e => e);
-
-  useEffect(() => {
-    console.log(`%c${name}%c Mounted`, "color: aqua; font-size: 15px;", "");
-    return () => {
-      console.log(`%c${name}%c Unmounted`, "color: aqua; font-size: 15px;", "");
-    };
-  }, [name]);
+  useEffect(memoizedCB, [memoizedCB]);
 };
 
-export default useMounted;
+export default useComponentDidMount;
 """,
 )
 
-useDependencyChangeLogger = Custom_Hook(
-    "useDependencyChangeLogger",
-    """import { useDebugValue, useEffect, useRef } from "react";
-import type { Composite } from "../types/missingTypes";
-import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
+useComponentDidUpdate = Custom_Hook(
+    "useComponentDidUpdate",
+    """import { useEffect, useRef } from "react";
 
 /**
- * Logs dependency changes
+ * Runs an effect anytime the component re-renders.
+ * @template {() => void} T T must be a function.
+ * @param {T} callback Callback function that gets invoked anytime the component updates.
+ * @param {readonly unknown[]} [deps] An optional dependency array, if provided effect will run only if the values in the list change.
+ */
+const useComponentDidUpdate = <T extends () => void>(
+  callback: T,
+  deps?: readonly unknown[]
+) => {
+  const didMount = useRef(false);
+  const callbackRef = useRef(callback);
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    didMount.current = false;
+    return () => {
+      didMount.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (didMount.current) {
+      callbackRef.current();
+    } else didMount.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+};
+
+export default useComponentDidUpdate;
+""",
+)
+
+useComponentWillUnmount = Custom_Hook(
+    "useComponentWillUnmount",
+    """import { useEffect, useRef } from "react";
+/**
+ * Runs an effect when the component unmounts.
+ * @template {() => void} T T must be a function.
+ * @param {T} callback Callback function that gets invoked when the component unmounts.
+ */
+const useComponentWillUnmount = <T extends () => void>(callback: T) => {
+  const callbackRef = useRef(callback);
+  const memoizedCB = callbackRef.current;
+
+  useEffect(() => memoizedCB, [memoizedCB]);
+};
+
+export default useComponentWillUnmount;
+""",
+)
+
+useFetch = Custom_Hook(
+    "useFetch",
+    """import { useCallback, useEffect, useState } from "react";
+import type { ObjectOrArray } from "../types/missingTypes";
+
+/**
+ * `useFetch` Accepts a url as a parameter and returns an object containing the fetched data, an error state, an a loading state.
+ * @template {ObjectOrArray} T The type of data we are getting back. It must be either an object or an array.
+ * @param {string} url The url to be fetched from.
+ * @returns {{ data: T, error: boolean, isLoading: boolean }} An object containing the fetched data, an error state, and a loading state.
+ */
+const useFetch = <T extends ObjectOrArray>(
+  url: string
+): { data: T; error: boolean; isLoading: boolean } => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
+  const [data, setData] = useState<T>({} as T);
+
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        setIsLoading(false);
+        setError(true);
+        throw Error("fetch failed");
+      }
+      const responseData = (await response.json()) as T;
+      setIsLoading(false);
+      setData(responseData);
+    } catch (err) {
+      setIsLoading(false);
+      setError(true);
+      console.error(err);
+    }
+  }, [url]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, error, isLoading };
+};
+
+export default useFetch;
+""",
+)
+
+usePreviousState = Custom_Hook(
+    "usePreviousState",
+    """import { useRef } from "react";
+
+/**
+ * `usePreviousState` Accepts a state value as a parameter and returns the previous state value.
+ * @template {NonNullable<unknown>} T T can be any non-nullable value.
+ * @param {T} state The state whose previous value is to be returned.
+ * @returns {T | undefined} The previous state is returned.
+ */
+const usePreviousState = <T extends NonNullable<unknown>>(
+  state: T
+): T | undefined => {
+  const currentRef = useRef<T>(state);
+  const previousRef = useRef<T>();
+
+  if (currentRef.current !== state) {
+    previousRef.current = currentRef.current;
+    currentRef.current = state;
+  }
+
+  return previousRef.current;
+};
+
+export default usePreviousState;
+""",
+)
+
+useComponentMountLogger = Logger_Hook(
+    "useComponentMountLogger",
+    """import { useDebugValue, useEffect } from "react";
+
+/**
  * Use only in development mode
+ *
+ * Checks when component mounts and unmounts and logs the results to the console.
+ */
+const useComponentMountLogger = () => {
+  const componentName =
+    new Error().stack?.split("\\n")[2].split(" ")[5] ?? "Component";
+
+  useDebugValue(componentName, e => e);
+
+  useEffect(() => {
+    console.log(
+      `%c${componentName}%c Mounted`,
+      "color: aqua; font-size: 15px;",
+      ""
+    );
+    return () => {
+      console.log(
+        `%c${componentName}%c Unmounted`,
+        "color: aqua; font-size: 15px;",
+        ""
+      );
+    };
+  }, [componentName]);
+};
+
+export default useComponentMountLogger;
+""",
+)
+
+useComponentUpdateLogger = Logger_Hook(
+    "useComponentUpdateLogger",
+    """import { useDebugValue, useRef } from "react";
+import useComponentDidUpdate from "../useComponentDidUpdate";
+
+/**
+ * Use only in development mode
+ *
+ * Counts how many times the component re-renders and logs the results to the console.
+ */
+const useComponentUpdateLogger = () => {
+  const componentName =
+    new Error().stack?.split("\\n")[2].split(" ")[5] ?? "Component";
+  const renderCount = useRef(0);
+
+  useDebugValue([componentName, renderCount.current], e => e);
+
+  useComponentDidUpdate(() => {
+    renderCount.current += 1;
+    console.log(
+      `%c${componentName}%c Re-rendered %c${renderCount.current}%c ${
+        renderCount.current === 1 ? "time" : "times"
+      }`,
+      "color: violet; font-size: 15px;",
+      "",
+      "color: violet; font-size: 15px;",
+      ""
+    );
+  });
+};
+
+export default useComponentUpdateLogger;
+""",
+)
+
+
+useDependencyChangeLogger = Logger_Hook(
+    "useDependencyChangeLogger",
+    """import { useDebugValue } from "react";
+import capitalizeFirstLetter from "../../utils/capitalizeFirstLetter";
+import useComponentDidUpdate from "../useComponentDidUpdate";
+
+/**
+ * Use only in development mode
+ *
+ * Checks when a single dependency changes and logs the results to the console.
  * @param dependency The dependency that we are checking for
  * @param depName Name of the dependency that we are checking for
  */
-
-const useDependencyChangeLogger = <T extends Composite>(
-  dependency: T,
-  depName = ""
-) => {
-  const didMount = useRef(false);
+const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
+  const componentName =
+    new Error().stack?.split("\\n")[2].split(" ")[5] ?? "Component";
   const depType = Array.isArray(dependency)
     ? "Array"
     : capitalizeFirstLetter(typeof dependency);
 
   useDebugValue([depName, dependency], e => e);
 
-  useEffect(() => {
-    didMount.current = false;
-    return () => {
-      didMount.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (didMount.current) {
-      console.log(
-        `%c${depName || "Unknown Dependency"}%c ${depType} Changed:%O`,
-        "color:palegreen; font-size: 15px;",
-        "",
-        dependency
-      );
-    } else didMount.current = true;
-  }, [dependency, depName, depType]);
+  useComponentDidUpdate(() => {
+    console.log(
+      `%c${
+        depName || "Unknown Dependency"
+      }%c ${depType} in ${componentName} Changed: %O`,
+      "color:palegreen; font-size: 15px;",
+      "",
+      dependency
+    );
+  }, [depName, depType, dependency]);
 };
 
 export default useDependencyChangeLogger;
 """,
 )
 
-useCountRender = Custom_Hook(
-    "useCountRender",
-    """import type { FC } from "react";
-import { useDebugValue, useEffect, useRef } from "react";
-import type { AnyObject, EmptyObject } from "../types/missingTypes";
-
-/**
- * Counts how many times the component re-renders
- * @param component The component that we are checking re-renders for
- */
-
-const useCountRender = <P extends AnyObject = EmptyObject>(
-  component: FC<P>
-) => {
-  const { name } = component;
-  const ref = useRef(0);
-  const didMount = useRef(false);
-
-  useDebugValue([name, ref.current], e => e);
-
-  useEffect(() => {
-    didMount.current = false;
-    ref.current = 0;
-    return () => {
-      didMount.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (didMount.current) {
-      ref.current += 1;
-      console.log(
-        `%c${name}%c Re-rendered %c${ref.current}%c ${
-          ref.current === 1 ? "time" : "times"
-        }`,
-        "color: violet; font-size: 15px;",
-        "",
-        "color: violet; font-size: 15px;",
-        ""
-      );
-    } else didMount.current = true;
-  });
-};
-
-export default useCountRender;
-""",
+custom_hooks = (
+    useComponentDidMount,
+    useComponentDidUpdate,
+    useComponentWillUnmount,
+    useFetch,
+    usePreviousState,
 )
 
-custom_hooks = (useMounted, useDependencyChangeLogger, useCountRender)
+logger_hooks = (
+    useComponentMountLogger,
+    useComponentUpdateLogger,
+    useDependencyChangeLogger,
+)

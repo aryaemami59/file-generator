@@ -12,14 +12,25 @@ from missingTypes import missingTypes
 from create_folder import create_folder
 from settings import settings
 from utility_functions import utility_functions
-from custom_hooks import custom_hooks
+from custom_hooks import custom_hooks, logger_hooks
 import os
 
-react_folders = ["components", "contexts", "data", "hooks", "types", "utils"]
+react_folders = [
+    "components",
+    "contexts",
+    "data",
+    "hooks",
+    "types",
+    "utils",
+    "hooks/logger",
+]
+
+
 react_dirs = list(map(lambda dir: f"src/{dir}", react_folders))
 react_files = (
     utility_functions
     + custom_hooks
+    + logger_hooks
     + (
         clean_react_index_html,
         clean_react_vite_app,

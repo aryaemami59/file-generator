@@ -12,12 +12,14 @@ missingTypes = TS_File(
 
 export type AnyArray = unknown[];
 
-export type AnyFunction = () => unknown;
+export type AnyFunction = (...args: unknown[]) => unknown;
 
 export type EmptyObject = Record<string, never>;
 
 export type EmptyArray = [];
 
 export type Composite = AnyFunction | AnyArray | AnyObject;
+
+export type ObjectOrArray = AnyArray | AnyObject;
 """,
 )

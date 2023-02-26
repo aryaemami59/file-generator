@@ -74,6 +74,11 @@ class Custom_Hook(TS_File):
         super().__init__(name, "src/hooks/", contents)
 
 
+class Logger_Hook(TS_File):
+    def __init__(self, name: str, contents: str) -> None:
+        super().__init__(name, "src/hooks/logger/", contents)
+
+
 class TSX_File(File):
     def __init__(self, name: str, folder: str, contents: str) -> None:
         super().__init__(name, "tsx", folder, contents)
