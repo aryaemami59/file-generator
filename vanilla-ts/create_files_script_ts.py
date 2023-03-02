@@ -3,12 +3,11 @@ import sys
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
-from write_to_all_files import write_to_all_files
 from ts_config import ts_config
 from styles_css import styles_css
+from create_file import Index_HTML_File, TS_File
 
-script_ts_html = (
-    "index.html",
+index_html = Index_HTML_File(
     """<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,21 +33,18 @@ script_ts_html = (
 )
 
 
-script_ts = (
-    "script.ts",
+script_ts = TS_File(
+    "script",
+    "",
     """export type AnyObject = Record<string, unknown>;
 
 export {};
 """,
 )
 
+files = (index_html, styles_css, script_ts, ts_config)
+
 
 if __name__ == "__main__":
-    write_to_all_files(
-        [
-            script_ts_html,
-            styles_css,
-            ts_config,
-            script_ts,
-        ]
-    )
+    for v in files:
+        v.create_file()

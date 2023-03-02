@@ -45,9 +45,21 @@ class HTML_File(File_In_Current_Dir):
         super().__init__(name, HTML_File.ext, contents)
 
 
+class CSS_File(File_In_Current_Dir):
+    ext = "css"
+
+    def __init__(self, name: str, contents: str) -> None:
+        super().__init__(name, CSS_File.ext, contents)
+
+
 class Index_HTML_File(HTML_File):
     def __init__(self, contents: str) -> None:
         super().__init__("index", contents)
+
+
+class Styles_CSS_File(CSS_File):
+    def __init__(self, contents: str) -> None:
+        super().__init__("styles", contents)
 
 
 # ll = Index_HTML_File("asdasd")
