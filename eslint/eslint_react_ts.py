@@ -28,7 +28,7 @@ eslint_react_ts = {
     "plugins": [
         "react",
         "@typescript-eslint",
-        "prefer-arrow",
+        "prefer-arrow-functions",
         "react-perf",
         "prettier",
         "react-redux",
@@ -62,7 +62,7 @@ eslint_react_ts = {
         "@typescript-eslint/no-throw-literal": [0],
         "no-console": [0],
         "no-param-reassign": [2, {"props": False}],
-        "prefer-arrow/prefer-arrow-functions": [2],
+        "prefer-arrow-functions/prefer-arrow-functions": [2],
         "prettier/prettier": [
             2,
             {

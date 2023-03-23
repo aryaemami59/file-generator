@@ -84,36 +84,49 @@ useFetch = Custom_Hook(
     """import { useCallback, useEffect, useState } from "react";
 import type { ObjectOrArray } from "../types/missingTypes";
 
+export type FetchedState<T extends ObjectOrArray> = {
+  data: T;
+  error: string | null;
+  isLoading: boolean;
+};
+
 /**
  * `useFetch` Accepts a url as a parameter and returns an object containing the fetched data, an error state, an a loading state.
  * @template {ObjectOrArray} T The type of data we are getting back. It must be either an object or an array.
- * @param {string} url The url to be fetched from.
- * @returns {{ data: T, error: boolean, isLoading: boolean }} An object containing the fetched data, an error state, and a loading state.
+ * @param {string} url The url to fetch data from.
+ * @param {RequestInit} init An optional init object that allows you to control a number of different settings.
+ * @returns {FetchedState<T>} An object containing the fetched data, an error state, and a loading state.
  */
 const useFetch = <T extends ObjectOrArray>(
-  url: string
-): { data: T; error: boolean; isLoading: boolean } => {
+  url: string,
+  init: RequestInit = {}
+): FetchedState<T> => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<T>({} as T);
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, init).catch((fetchError: TypeError) => {
+        throw new Error(fetchError.message);
+      });
       if (!response.ok) {
+        const errorMessage = `Response failed status code: ${response.status}`;
         setIsLoading(false);
-        setError(true);
-        throw Error("fetch failed");
+        setError(errorMessage);
+        throw new Error(errorMessage);
       }
       const responseData = (await response.json()) as T;
       setIsLoading(false);
       setData(responseData);
     } catch (err) {
       setIsLoading(false);
-      setError(true);
+      if (err instanceof Error) {
+        setError(err.message);
+      }
       console.error(err);
     }
-  }, [url]);
+  }, [init, url]);
 
   useEffect(() => {
     fetchData();
@@ -132,7 +145,7 @@ usePreviousState = Custom_Hook(
 
 /**
  * `usePreviousState` Accepts a state value as a parameter and returns the previous state value.
- * @template {NonNullable<unknown>} T T can be any non-nullable value.
+ * @template {NonNullable<unknown>} T T can be any non-nullish value.
  * @param {T} state The state whose previous value is to be returned.
  * @returns {T | undefined} The previous state is returned.
  */
@@ -235,8 +248,8 @@ import useComponentDidUpdate from "../useComponentDidUpdate";
  * Use only in development mode
  *
  * Checks when a single dependency changes and logs the results to the console.
- * @param dependency The dependency that we are checking for
- * @param depName Name of the dependency that we are checking for
+ * @param dependency The dependency that we are checking for.
+ * @param depName Name of the dependency that we are checking for.
  */
 const useDependencyChangeLogger = <T>(dependency: T, depName = "") => {
   const componentName =

@@ -1,5 +1,5 @@
-import path
 import sys
+import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
@@ -22,7 +22,7 @@ react_folders = [
     "hooks",
     "types",
     "utils",
-    "hooks/logger",
+    "hooks/loggers",
 ]
 
 
