@@ -8,4 +8,10 @@ eslint_react_native_ts["plugins"].insert(1, "react-native")
 eslint_react_native_ts["rules"]["react-native/no-color-literals"] = [0]
 eslint_react_native_ts["rules"]["react-native/sort-styles"] = [0]
 
-eslintignore_react_native = "node_modules\nexpo\n.expo-shared\n.vscode\nbabel.config.js"
+eslintignore_react_native = """node_modules
+expo
+.expo-shared
+.vscode
+webpack.config.ts
+"""
+# eslintignore_react_native = "node_modules\nexpo\n.expo-shared\n.vscode\nbabel.config.js"

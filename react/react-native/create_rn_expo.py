@@ -12,10 +12,18 @@ from custom_hooks import custom_hooks, logger_hooks
 from create_folder import create_folder
 from settings import settings
 from react.create_react_vite import react_folders
+from missingTypes import missingTypes
+from rn_extra_files import rn_extra_files
 
 rn_folders = react_folders + ["screens", "styles"]
-rn_files = utility_functions + custom_hooks + logger_hooks + (clean_rn_app,)
 rn_dirs = list(map(lambda dir: f"src/{dir}", rn_folders))
+rn_files = (
+    utility_functions
+    + custom_hooks
+    + logger_hooks
+    + (clean_rn_app, missingTypes)
+    + rn_extra_files
+)
 
 
 def create_rn_expo() -> None:
