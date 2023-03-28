@@ -1,8 +1,17 @@
+from typing import Literal
 from write_to_all_files import write_to_all_files
+
+ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx"]
 
 
 class File:
-    def __init__(self, name: str, ext: str, folder: str, contents: str) -> None:
+    def __init__(
+        self,
+        name: str,
+        ext: ext_type,
+        folder: str,
+        contents: str,
+    ) -> None:
         self.name = name
         self.contents = contents
         self.ext = ext
@@ -14,12 +23,13 @@ class File:
 
     def info(self) -> None:
         print(
-            f"name: {self.name}, extension: {self.ext}, folder: {self.folder}, contents: {self.contents}"
+            f"name: {self.name}, extension: {self.ext}, "
+            f"folder: {self.folder}, contents: {self.contents}"
         )
 
 
 class File_In_Current_Dir(File):
-    def __init__(self, name: str, ext: str, contents: str) -> None:
+    def __init__(self, name: str, ext: ext_type, contents: str) -> None:
         super().__init__(name, ext, "", contents)
 
 
@@ -29,24 +39,24 @@ class TS_File(File):
 
 
 class Empty_File(File):
-    def __init__(self, name: str, ext: str, folder: str) -> None:
+    def __init__(self, name: str, ext: ext_type, folder: str) -> None:
         super().__init__(name, ext, folder, "")
 
 
 class Empty_File_Current_Dir(Empty_File):
-    def __init__(self, name: str, ext: str) -> None:
+    def __init__(self, name: str, ext: ext_type) -> None:
         super().__init__(name, ext, "")
 
 
 class HTML_File(File_In_Current_Dir):
-    ext = "html"
+    ext: ext_type = "html"
 
     def __init__(self, name: str, contents: str) -> None:
         super().__init__(name, HTML_File.ext, contents)
 
 
 class CSS_File(File_In_Current_Dir):
-    ext = "css"
+    ext: ext_type = "css"
 
     def __init__(self, name: str, contents: str) -> None:
         super().__init__(name, CSS_File.ext, contents)

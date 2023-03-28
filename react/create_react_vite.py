@@ -7,7 +7,7 @@ from clean_react_vite_app import clean_react_vite_app
 from clean_react_vite_main import clean_react_vite_main
 from clean_react_index_html import clean_react_index_html
 from write_to_all_files import write_to_all_files
-from vite_config import vite_config
+from vite_config import vite_config, react_ts_config
 from missingTypes import missingTypes
 from create_folder import create_folder
 from settings import settings
@@ -36,6 +36,7 @@ react_files = (
         clean_react_vite_app,
         clean_react_vite_main,
         vite_config,
+        react_ts_config,
         missingTypes,
     )
 )

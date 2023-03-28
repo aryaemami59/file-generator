@@ -1,9 +1,9 @@
-def write_to_file(file: str, content: str) -> None:
-    f = open(file, "w")
-    f.write(content)
-    f.close()
+def write_to_file(file_name: str, content: str) -> None:
+    file = open(file_name, "w")
+    file.write(content)
+    file.close()
 
 
 def write_to_all_files(files: list[tuple[str, str]]) -> None:
-    for f in files:
-        write_to_file(f[0], f[1])
+    for file in files:
+        write_to_file(file[0], file[1])

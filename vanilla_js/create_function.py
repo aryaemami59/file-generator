@@ -6,7 +6,11 @@ def create_files(*middle: list[str]):
     h.writelines(basic(*middle))
     s = open("styles.css", "w")
     s.write(
-        "* {\n\tmargin: 0;\n\tpadding: 0;\n\tbox-sizing: border-box;\n}\n\nhtml {\n\twidth: 100%;\n\theight: 100%;\n}\n\nbody {\n\twidth: 100%;\n\theight: 100%;\n}\n\n"
+        "* {\n\tmargin: 0;\n\tpadding: 0;\n\t"
+        "box-sizing: border-box;\n}\n\n"
+        "html {\n\twidth: 100%;\n\theight: 100%;\n}\n\nbody "
+        "{\n\twidth: 100%;"
+        "\n\theight: 100%;\n}\n\n"
     )
     s.close()
     f = open("script.js", "w")

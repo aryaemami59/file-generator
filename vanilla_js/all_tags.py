@@ -4,11 +4,30 @@ head_tag_open = "\t<head>\n"
 meta_tag_1 = '\t\t<meta charset="UTF-8" />\n'
 meta_tag_2 = '\t\t<meta http-equiv="X-UA-Compatible" content="IE=edge" />\n'
 meta_tag_3 = (
-    '\t\t<meta name="viewport" content="width=device-width, initial-scale=1.0" />\n'
+    '\t\t<meta name="viewport" content="width=device-width,'
+    ' initial-scale=1.0" />\n'
 )
-bootstrap_5_js_cdn = '\t\t<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous" defer></script>\n'
-jquery_36_cdn = '\t\t<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>\n'
-bootstrap_5_css_cdn = '\t\t<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />\n'
+bootstrap_5_js_cdn = (
+    "\t\t<script"
+    ' src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/'
+    'bootstrap.bundle.min.js"'
+    ' integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jr'
+    'RAoQmDKKtQBHUuLZ9AsSv4jD4Xa"'
+    ' crossorigin="anonymous" defer></script>\n'
+)
+jquery_36_cdn = (
+    '\t\t<script src="https://code.jquery.com/jquery-3.6.0.min.js"'
+    ' integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="'
+    ' crossorigin="anonymous" defer></script>\n'
+)
+bootstrap_5_css_cdn = (
+    '\t\t<link rel="stylesheet"'
+    ' href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0'
+    '/dist/css/bootstrap.min.css"'
+    ' integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/'
+    'HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"'
+    ' crossorigin="anonymous" />\n'
+)
 html_script_defer = '\t\t<script src="script.js" defer></script>\n'
 html_styles = '\t\t<link rel="stylesheet" href="styles.css" />\n'
 title_tag = "\t\t<title>Document</title>\n"

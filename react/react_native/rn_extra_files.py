@@ -3,8 +3,8 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent.parent)
-
 from create_file import TS_File, File_In_Current_Dir
+
 
 index_d_ts = TS_File(
     "index.d",
@@ -67,4 +67,10 @@ module.exports = api => {
 """,
 )
 
-rn_extra_files = (index_d_ts, webpack_ts, webpack_js, rn_ts_config, babel_config)
+rn_extra_files = (
+    index_d_ts,
+    webpack_ts,
+    webpack_js,
+    rn_ts_config,
+    babel_config,
+)
