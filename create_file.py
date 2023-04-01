@@ -1,16 +1,18 @@
-from typing import Literal
+from json import dump
 from write_to_all_files import write_to_all_files
+from eslint.my_types import ESLINT_TYPE, TS_CONFIG_TYPE
+from typing import Literal, TypedDict, Any
 
-ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx"]
+ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx", ""]
 
 
-class File:
+class Any_File:
     def __init__(
         self,
         name: str,
         ext: ext_type,
         folder: str,
-        contents: str,
+        contents: Any,
     ) -> None:
         self.name = name
         self.contents = contents
@@ -18,14 +20,25 @@ class File:
         self.folder = folder
         self.directory = f"{folder}{name}.{ext}"
 
-    def create_file(self) -> None:
-        write_to_all_files([(self.directory, self.contents)])
-
     def info(self) -> None:
         print(
             f"name: {self.name}, extension: {self.ext}, "
             f"folder: {self.folder}, contents: {self.contents}"
         )
+
+
+class File(Any_File):
+    def __init__(
+        self,
+        name: str,
+        ext: ext_type,
+        folder: str,
+        contents: str,
+    ) -> None:
+        super().__init__(name, ext, folder, contents)
+
+    def create_file(self) -> None:
+        write_to_all_files([(self.directory, self.contents)])
 
 
 class File_In_Current_Dir(File):
@@ -72,20 +85,6 @@ class Styles_CSS_File(CSS_File):
         super().__init__("styles", contents)
 
 
-# ll = Index_HTML_File("asdasd")
-# ll.info()
-
-
-# class Empty_HTML_Current_Dir(Empty_File_Current_Dir, HTML_File):
-#     def __init__(self, name: str) -> None:
-#         super().__init__(name, HTML_File.ext)
-
-
-# jj = Empty_HTML_Current_Dir("index")
-
-# jj.info()
-
-
 class Util_Function(TS_File):
     def __init__(self, name: str, contents: str) -> None:
         super().__init__(name, "src/utils/", contents)
@@ -109,3 +108,57 @@ class TSX_File(File):
 class React_Component_In_SRC_Folder(TSX_File):
     def __init__(self, name: str, contents: str) -> None:
         super().__init__(name, "src/", contents)
+
+
+class JSON_File(Any_File):
+    def __init__(self, name: str, folder: str, contents: TypedDict) -> None:
+        super().__init__(name, "json", folder, contents)
+
+    def create_file(self) -> None:
+        file = open(f"{self.name}.{self.ext}", "w")
+        dump(self.contents, file, indent=2, sort_keys=True)
+        file.close()
+
+
+class ESLINT_RC_JSON(JSON_File):
+    def __init__(self, contents: ESLINT_TYPE) -> None:
+        super().__init__(".eslintrc", "", contents)
+
+
+class TS_CONFIG_JSON(JSON_File):
+    def __init__(self, contents: TS_CONFIG_TYPE) -> None:
+        super().__init__("tsconfig", "", contents)
+
+
+class Ignore_Files(File):
+    def __init__(
+        self,
+        name: str,
+        folder: str,
+        contents: str,
+    ) -> None:
+        super().__init__(name, "", folder, contents)
+
+
+class ESLINT_Ignore(Ignore_Files):
+    def __init__(
+        self,
+        contents: str,
+    ) -> None:
+        super().__init__(".eslintignore", "", contents)
+
+
+# import platform
+# print(platform.python_version())
+
+# from pydantic import BaseModel
+
+# # Define your TypeScript interface as a string
+# typescript_interface = 'interface Person {name: string;age: number;city: string;}'
+
+
+# # Parse the TypeScript interface into a Pydantic BaseModel class
+# Person = BaseModel.parse_raw(typescript_interface)
+
+# # Print the resulting TypedDict class
+# print(Person)

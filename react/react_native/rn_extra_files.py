@@ -3,7 +3,7 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent.parent)
-from create_file import TS_File, File_In_Current_Dir
+from create_file import TS_File, File_In_Current_Dir, TS_CONFIG_JSON
 
 
 index_d_ts = TS_File(
@@ -38,21 +38,33 @@ module.exports = require("./webpack.config.ts");
 """,
 )
 
-rn_ts_config = File_In_Current_Dir(
-    "tsconfig",
-    "json",
-    """{
-  "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["**/*"],
-  "files": ["./webpack.config.js"]
-}
-""",
+rn_ts_config = TS_CONFIG_JSON(
+    {
+        "extends": "expo/tsconfig.base",
+        "compilerOptions": {
+            "strict": True,
+            "noImplicitAny": True,
+            "forceConsistentCasingInFileNames": True,
+        },
+        "include": ["**/*"],
+        "files": ["./webpack.config.js"],
+    },
 )
+# rn_ts_config = File_In_Current_Dir(
+#     "tsconfig",
+#     "json",
+#     """{
+#   "extends": "expo/tsconfig.base",
+#   "compilerOptions": {
+#     "strict": true,
+#     "noImplicitAny": true,
+#     "forceConsistentCasingInFileNames": true
+#   },
+#   "include": ["**/*"],
+#   "files": ["./webpack.config.js"]
+# }
+# """,
+# )
 
 babel_config = File_In_Current_Dir(
     "babel.config",

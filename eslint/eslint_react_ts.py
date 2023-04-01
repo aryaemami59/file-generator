@@ -90,8 +90,6 @@ from eslint_vanilla import ESLINT_VANILLA
 
 eslint_react_ts = ESLINT_VANILLA
 
-# eslint_react_ts[]
-
 if "extends" in eslint_react_ts:
     eslint_react_ts["extends"].remove("airbnb-base")
     eslint_react_ts["extends"].remove("plugin:prettier/recommended")
