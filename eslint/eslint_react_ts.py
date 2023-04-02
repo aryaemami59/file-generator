@@ -87,8 +87,45 @@
 # }
 
 from eslint_vanilla import ESLINT_VANILLA
+from my_types import Rules
 
-eslint_react_ts = ESLINT_VANILLA
+eslint_react_ts = ESLINT_VANILLA.copy()
+
+eslint_react_ts_rules: Rules = {
+    "@typescript-eslint/consistent-type-definitions": (2, "type"),
+    "@typescript-eslint/consistent-type-imports": (2,),
+    "@typescript-eslint/naming-convention": (
+        2,
+        {"format": ["PascalCase"], "selector": ["typeLike"]},
+        {
+            "format": ["PascalCase", "camelCase"],
+            "selector": ["variable"],
+            "types": ["function"],
+        },
+        {
+            "format": ["camelCase", "UPPER_CASE"],
+            "selector": ["variable"],
+            "types": ["array", "boolean", "number", "string"],
+        },
+        {
+            "format": None,
+            "modifiers": ["requiresQuotes"],
+            "selector": ["objectLiteralProperty"],
+        },
+        {"format": ["camelCase"], "selector": ["parameter"]},
+    ),
+    "@typescript-eslint/no-floating-promises": (0,),
+    "@typescript-eslint/no-throw-literal": (0,),
+    "react/function-component-definition": (
+        2,
+        {
+            "namedComponents": "arrow-function",
+            "unnamedComponents": "arrow-function",
+        },
+    ),
+    "react/jsx-props-no-spreading": (0,),
+    "react/require-default-props": (0,),
+}
 
 if "extends" in eslint_react_ts:
     eslint_react_ts["extends"].remove("airbnb-base")
@@ -126,43 +163,7 @@ if "plugins" in eslint_react_ts:
     eslint_react_ts["plugins"].insert(3, "react-perf")
     eslint_react_ts["plugins"].extend(["react-redux", "jsx-a11y"])
 if "rules" in eslint_react_ts:
-    eslint_react_ts["rules"].update(
-        {
-            "@typescript-eslint/consistent-type-definitions": [2, "type"],
-            "@typescript-eslint/consistent-type-imports": [2],
-            "@typescript-eslint/naming-convention": [
-                2,
-                {"format": ["PascalCase"], "selector": ["typeLike"]},
-                {
-                    "format": ["PascalCase", "camelCase"],
-                    "selector": ["variable"],
-                    "types": ["function"],
-                },
-                {
-                    "format": ["camelCase", "UPPER_CASE"],
-                    "selector": ["variable"],
-                    "types": ["array", "boolean", "number", "string"],
-                },
-                {
-                    "format": None,
-                    "modifiers": ["requiresQuotes"],
-                    "selector": ["objectLiteralProperty"],
-                },
-                {"format": ["camelCase"], "selector": ["parameter"]},
-            ],
-            "@typescript-eslint/no-floating-promises": [0],
-            "@typescript-eslint/no-throw-literal": [0],
-            "react/function-component-definition": [
-                2,
-                {
-                    "namedComponents": "arrow-function",
-                    "unnamedComponents": "arrow-function",
-                },
-            ],
-            "react/jsx-props-no-spreading": [0],
-            "react/require-default-props": [0],
-        }
-    )
+    eslint_react_ts["rules"].update(eslint_react_ts_rules)  # type: ignore
     if (
         "prettier/prettier" in eslint_react_ts["rules"]
         and type(eslint_react_ts["rules"]["prettier/prettier"]) is list

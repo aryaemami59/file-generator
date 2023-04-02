@@ -50,21 +50,6 @@ rn_ts_config = TS_CONFIG_JSON(
         "files": ["./webpack.config.js"],
     },
 )
-# rn_ts_config = File_In_Current_Dir(
-#     "tsconfig",
-#     "json",
-#     """{
-#   "extends": "expo/tsconfig.base",
-#   "compilerOptions": {
-#     "strict": true,
-#     "noImplicitAny": true,
-#     "forceConsistentCasingInFileNames": true
-#   },
-#   "include": ["**/*"],
-#   "files": ["./webpack.config.js"]
-# }
-# """,
-# )
 
 babel_config = File_In_Current_Dir(
     "babel.config",

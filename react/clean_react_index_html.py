@@ -3,9 +3,9 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
-from create_file import HTML_File
+from create_file import HTML_File_Current_Dir
 
-clean_react_index_html = HTML_File(
+clean_react_index_html = HTML_File_Current_Dir(
     "index",
     """<!DOCTYPE html>
 <html lang="en">

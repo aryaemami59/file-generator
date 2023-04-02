@@ -1,7 +1,8 @@
 from json import dump
 from write_to_all_files import write_to_all_files
 from eslint.my_types import ESLINT_TYPE, TS_CONFIG_TYPE
-from typing import Literal, TypedDict, Any
+from typing import Literal, TypedDict, Any, Dict
+from create_folder import create_folder
 
 ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx", ""]
 
@@ -61,26 +62,26 @@ class Empty_File_Current_Dir(Empty_File):
         super().__init__(name, ext, "")
 
 
-class HTML_File(File_In_Current_Dir):
+class HTML_File_Current_Dir(File_In_Current_Dir):
     ext: ext_type = "html"
 
     def __init__(self, name: str, contents: str) -> None:
-        super().__init__(name, HTML_File.ext, contents)
+        super().__init__(name, HTML_File_Current_Dir.ext, contents)
 
 
-class CSS_File(File_In_Current_Dir):
+class CSS_File_Current_Dir(File_In_Current_Dir):
     ext: ext_type = "css"
 
     def __init__(self, name: str, contents: str) -> None:
-        super().__init__(name, CSS_File.ext, contents)
+        super().__init__(name, CSS_File_Current_Dir.ext, contents)
 
 
-class Index_HTML_File(HTML_File):
+class Index_HTML_File(HTML_File_Current_Dir):
     def __init__(self, contents: str) -> None:
         super().__init__("index", contents)
 
 
-class Styles_CSS_File(CSS_File):
+class Styles_CSS_File(CSS_File_Current_Dir):
     def __init__(self, contents: str) -> None:
         super().__init__("styles", contents)
 
@@ -123,6 +124,17 @@ class JSON_File(Any_File):
 class ESLINT_RC_JSON(JSON_File):
     def __init__(self, contents: ESLINT_TYPE) -> None:
         super().__init__(".eslintrc", "", contents)
+
+
+class SETTINGS_JSON(Any_File):
+    def __init__(self, contents: Dict) -> None:
+        super().__init__("settings", "json", ".vscode/", contents)
+
+    def create_file(self) -> None:
+        create_folder([".vscode"])
+        file = open(f"{self.directory}", "w")
+        dump(self.contents, file, indent=2, sort_keys=True)
+        file.close()
 
 
 class TS_CONFIG_JSON(JSON_File):

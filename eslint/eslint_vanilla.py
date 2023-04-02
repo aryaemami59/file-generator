@@ -92,9 +92,9 @@ ESLINT_VANILLA: ESLINT_TYPE = {
     "plugins": ["prefer-arrow-functions", "prettier"],
     "root": True,
     "rules": {
-        "no-console": [0],
-        "no-param-reassign": [2, {"props": False}],
-        "prefer-arrow-functions/prefer-arrow-functions": [
+        "no-console": (0,),
+        "no-param-reassign": (2, {"props": False}),
+        "prefer-arrow-functions/prefer-arrow-functions": (
             2,
             {
                 "classPropertiesAllowed": False,
@@ -102,8 +102,8 @@ ESLINT_VANILLA: ESLINT_TYPE = {
                 "returnStyle": "unchanged",
                 "singleReturnOnly": False,
             },
-        ],
-        "prettier/prettier": [
+        ),
+        "prettier/prettier": (
             2,
             {
                 "arrowParens": "avoid",
@@ -111,7 +111,7 @@ ESLINT_VANILLA: ESLINT_TYPE = {
                 "endOfLine": "auto",
                 "singleAttributePerLine": True,
             },
-        ],
+        ),
     },
 }
 

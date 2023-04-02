@@ -9,8 +9,8 @@ if "extends" in eslint_react_native_ts:
 if "plugins" in eslint_react_native_ts:
     eslint_react_native_ts["plugins"].insert(1, "react-native")
 if "rules" in eslint_react_native_ts:
-    eslint_react_native_ts["rules"]["react-native/no-color-literals"] = [0]
-    eslint_react_native_ts["rules"]["react-native/sort-styles"] = [0]
+    eslint_react_native_ts["rules"]["react-native/no-color-literals"] = (0,)
+    eslint_react_native_ts["rules"]["react-native/sort-styles"] = (0,)
 
 eslintignore_react_native = """node_modules
 .expo

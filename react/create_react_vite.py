@@ -12,7 +12,7 @@ from missingTypes import missingTypes
 from create_folder import create_folder
 from settings import settings
 from utility_functions import utility_functions
-from custom_hooks import custom_hooks, logger_hooks
+from react.custom_hooks import custom_hooks, logger_hooks
 import os
 
 react_folders = [
