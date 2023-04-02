@@ -3,6 +3,7 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
+
 from ts_config import ts_config
 from styles_css import styles_css
 from create_file import Index_HTML_File, TS_File

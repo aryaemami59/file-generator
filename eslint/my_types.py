@@ -425,6 +425,8 @@ Jsx_Emit = Literal[
 
 Module_Detection_Kind = Literal["legacy", "auto", "force"]
 
+New_Line_Kind = Literal["crlf", "lf"]
+
 
 class COMPILER_OPTIONS(TypedDict, total=False):
     allowArbitraryExtensions: bool
@@ -471,6 +473,7 @@ class COMPILER_OPTIONS(TypedDict, total=False):
     moduleDetection: Module_Detection_Kind
     moduleResolution: Module_Resolution_Kind
     moduleSuffixes: List[str]
+    newLine: New_Line_Kind
     noEmit: bool
     noEmitHelpers: bool
     noEmitOnError: bool
