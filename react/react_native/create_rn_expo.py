@@ -20,17 +20,16 @@ rn_files = (
     utility_functions
     + custom_hooks
     + logger_hooks
-    + (clean_rn_app, missingTypes)
+    + (clean_rn_app, missingTypes, settings)
     + rn_extra_files
 )
 
 
 def create_rn_expo() -> None:
-    create_folder([".vscode"])
     create_folder(rn_dirs)
     for v in rn_files:
         v.create_file()
-    write_to_all_files([settings, ("README.md", "# New Project")])
+    write_to_all_files([("README.md", "# New Project")])
 
 
 if __name__ == "__main__":

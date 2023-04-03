@@ -140,7 +140,7 @@ if "extends" in eslint_react_ts:
             "plugin:react/recommended",
             "plugin:react/jsx-runtime",
             "plugin:jsx-a11y/strict",
-            "plugin:react-redux/all",
+            # "plugin:react-redux/all",
             "plugin:react-perf/all",
             "plugin:@typescript-eslint/recommended",
             "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -161,7 +161,8 @@ if "plugins" in eslint_react_ts:
     eslint_react_ts["plugins"].insert(0, "react")
     eslint_react_ts["plugins"].insert(1, "@typescript-eslint")
     eslint_react_ts["plugins"].insert(3, "react-perf")
-    eslint_react_ts["plugins"].extend(["react-redux", "jsx-a11y"])
+    eslint_react_ts["plugins"].extend(["jsx-a11y"])
+    # eslint_react_ts["plugins"].extend(["react-redux", "jsx-a11y"])
 if "rules" in eslint_react_ts:
     eslint_react_ts["rules"].update(eslint_react_ts_rules)  # type: ignore
     if (

@@ -3,7 +3,7 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
-from create_file import TS_File, File_In_Current_Dir, TS_CONFIG_JSON
+from create_file import TS_File, TS_CONFIG_JSON
 
 vite_config = TS_File(
     "vite.config",

@@ -360,7 +360,7 @@ class Parser_Options(TypedDict, total=False):
     tsconfigRootDir: str
 
 
-class ESLINT_TYPE(TypedDict, total=False):
+class _ESLINT_TYPE(TypedDict):
     env: Dict[str, bool]
     extends: List[str]
     globals: Globals
@@ -375,6 +375,24 @@ class ESLINT_TYPE(TypedDict, total=False):
     root: bool
     rules: Rules
     settings: Dict[str, Any]
+
+
+class ESLINT_TYPE(_ESLINT_TYPE, total=False):
+    pass
+    # env: Dict[str, bool]
+    # extends: List[str]
+    # globals: Globals
+    # ignorePatterns: str | List[str]
+    # noInlineConfig: bool
+    # overrides: List[str]
+    # parser: Literal["@typescript-eslint/parser"]
+    # parserOptions: Parser_Options
+    # plugins: List[str]
+    # processor: str
+    # reportUnusedDisableDirectives: bool
+    # root: bool
+    # rules: Rules
+    # settings: Dict[str, Any]
 
 
 ImportsNotUsedAsValues = Literal["remove", "preserve", "error"]
@@ -427,8 +445,105 @@ Module_Detection_Kind = Literal["legacy", "auto", "force"]
 
 New_Line_Kind = Literal["crlf", "lf"]
 
+class _COMPILER_OPTIONS(TypedDict):
+    allowArbitraryExtensions: bool
+    allowImportingTsExtensions: bool
+    allowJs: bool
+    allowSyntheticDefaultImports: bool
+    allowUmdGlobalAccess: bool
+    allowUnreachableCode: bool
+    allowUnusedLabels: bool
+    alwaysStrict: bool
+    assumeChangesOnlyAffectDirectDependencies: bool
+    baseUrl: str
+    charset: str
+    checkJs: bool
+    composite: bool
+    customConditions: List[str]
+    declaration: bool
+    declarationDir: str
+    declarationMap: bool
+    emitBOM: bool
+    emitDeclarationOnly: bool
+    emitDecoratorMetadata: bool
+    esModuleInterop: bool
+    exactOptionalPropertyTypes: bool
+    experimentalDecorators: bool
+    forceConsistentCasingInFileNames: bool
+    ignoreDeprecations: str
+    importHelpers: bool
+    importsNotUsedAsValues: ImportsNotUsedAsValues
+    incremental: bool
+    inlineSourceMap: bool
+    inlineSources: bool
+    isolatedModules: bool
+    jsx: Jsx_Emit
+    jsxFactory: str
+    jsxFragmentFactory: str
+    jsxImportSource: str
+    keyofStringsOnly: bool
+    lib: List[str]
+    locale: str
+    mapRoot: str
+    maxNodeModuleJsDepth: float
+    module: Module_Kind
+    moduleDetection: Module_Detection_Kind
+    moduleResolution: Module_Resolution_Kind
+    moduleSuffixes: List[str]
+    newLine: New_Line_Kind
+    noEmit: bool
+    noEmitHelpers: bool
+    noEmitOnError: bool
+    noErrorTruncation: bool
+    noFallthroughCasesInSwitch: bool
+    noImplicitAny: bool
+    noImplicitOverride: bool
+    noImplicitReturns: bool
+    noImplicitThis: bool
+    noImplicitUseStrict: bool
+    noLib: bool
+    noResolve: bool
+    noStrictGenericChecks: bool
+    noUncheckedIndexedAccess: bool
+    noUnusedLocals: bool
+    noUnusedParameters: bool
+    out: str
+    outDir: str
+    outFile: str
+    preserveConstEnums: bool
+    preserveSymlinks: bool
+    preserveValueImports: bool
+    project: str
+    reactNamespace: str
+    removeComments: bool
+    resolveJsonModule: bool
+    resolvePackageJsonExports: bool
+    resolvePackageJsonImports: bool
+    rootDir: str
+    rootDirs: List[str]
+    skipDefaultLibCheck: bool
+    skipLibCheck: bool
+    sourceMap: bool
+    sourceRoot: str
+    strict: bool
+    strictBindCallApply: bool
+    strictFunctionTypes: bool
+    strictNullChecks: bool
+    strictPropertyInitialization: bool
+    stripInternal: bool
+    suppressExcessPropertyErrors: bool
+    suppressImplicitAnyIndexErrors: bool
+    target: Script_Target
+    traceResolution: bool
+    tsBuildInfoFile: str
+    types: List[str]
+    typeRoots: List[str]
+    useDefineForClassFields: bool
+    useUnknownInCatchVariables: bool
+    verbatimModuleSyntax: bool
 
-class COMPILER_OPTIONS(TypedDict, total=False):
+
+class COMPILER_OPTIONS(_COMPILER_OPTIONS, total=False):
     allowArbitraryExtensions: bool
     allowImportingTsExtensions: bool
     allowJs: bool
@@ -560,7 +675,20 @@ class Watch_Options(TypedDict, total=False):
     excludeFiles: List[str]
 
 
-class TS_CONFIG_TYPE(TypedDict, total=False):
+class _TS_CONFIG_TYPE(TypedDict):
+    buildOptions: Build_Options
+    compileOnSave: bool
+    compilerOptions: COMPILER_OPTIONS
+    files: List[str]
+    include: List[str]
+    exclude: List[str]
+    extends: List[str] | str
+    references: List[REFERENCES]
+    typeAcquisition: Type_Acquisition
+    watchOptions: Watch_Options
+
+
+class TS_CONFIG_TYPE(_TS_CONFIG_TYPE, total=False):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS

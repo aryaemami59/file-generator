@@ -13,6 +13,7 @@ from create_folder import create_folder
 from settings import settings
 from utility_functions import utility_functions
 from react.custom_hooks import custom_hooks, logger_hooks
+from create_settings import create_settings
 import os
 
 react_folders = [
@@ -44,6 +45,7 @@ react_files = (
 
 def create_react_vite() -> None:
     create_folder([".vscode"])
+    create_settings()
     create_folder(react_dirs)
     for u in react_files:
         u.create_file()
@@ -51,7 +53,7 @@ def create_react_vite() -> None:
         [
             ("src/App.css", ""),
             ("README.md", "# New Project"),
-            settings,
+            # settings,
         ]
     )
     os.remove("src/index.css")
