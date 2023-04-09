@@ -1,10 +1,11 @@
+import sys
 from json import dump
 from write_to_all_files import write_to_all_files
 from eslint.my_types import ESLINT_TYPE, TS_CONFIG_TYPE
 from typing import Literal, TypedDict, Any, Dict
 from create_folder import create_folder
 
-ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx", ""]
+ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx", "py", ""]
 
 
 class Any_File:
@@ -60,6 +61,16 @@ class Empty_File(File):
 class Empty_File_Current_Dir(Empty_File):
     def __init__(self, name: str, ext: ext_type) -> None:
         super().__init__(name, ext, "")
+
+
+class Python_File(Empty_File):
+    print(sys.argv)
+
+    def __init__(self, folder: str) -> None:
+        super().__init__(sys.argv[1], "py", folder)
+
+    # def create_file(self) -> None:
+    #     write_to_all_files([(self.directory, self.contents)])
 
 
 class HTML_File_Current_Dir(File_In_Current_Dir):

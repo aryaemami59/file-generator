@@ -184,25 +184,18 @@ export const selectStatus = (state: RootState) => state.counter.status;
 """,
 )
 
-# redux_ts_config = react_ts_config
-
-# redux_ts_config.contents["compilerOptions"]["types"].append("node")
 
 redux_files = (
     redux_hooks,
     redux_store,
     redux_types,
     redux_slice,
-    # redux_main,
     redux_selectors,
-    # redux_ts_config,
 )
 
 
 def get_redux_files():
     if os.path.isfile("src/main.tsx"):
-        print("yes")
         return redux_files + (redux_main,)
     else:
-        print("no")
         return redux_files + (redux_app,)

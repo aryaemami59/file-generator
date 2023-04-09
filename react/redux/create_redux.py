@@ -1,8 +1,3 @@
-# import sys
-# import path
-
-# folder = path.Path(__file__).abspath()
-# sys.path.append(folder.parent.parent.parent)
 import os
 from redux_files import get_redux_files
 from create_folder import create_folder
