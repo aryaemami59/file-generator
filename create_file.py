@@ -64,7 +64,7 @@ class Empty_File_Current_Dir(Empty_File):
 
 
 class Python_File(Empty_File):
-    print(sys.argv)
+    # print(sys.argv)
 
     def __init__(self, folder: str) -> None:
         super().__init__(sys.argv[1], "py", folder)

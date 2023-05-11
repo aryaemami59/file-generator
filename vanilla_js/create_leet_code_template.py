@@ -23,7 +23,7 @@ def create_leet_code_template(file_name: str) -> None:
 
 """,
     )
-
+    # print(sys.argv)
     write_to_all_files([my_js_file])
 
 

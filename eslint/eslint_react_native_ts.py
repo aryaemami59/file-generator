@@ -1,6 +1,6 @@
 from eslint_react_ts import eslint_react_ts
 
-eslint_react_native_ts = eslint_react_ts
+eslint_react_native_ts = eslint_react_ts.copy()
 if "env" in eslint_react_native_ts:
     eslint_react_native_ts["env"]["react-native/react-native"] = True
 if "extends" in eslint_react_native_ts:

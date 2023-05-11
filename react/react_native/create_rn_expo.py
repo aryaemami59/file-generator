@@ -26,6 +26,8 @@ rn_files = (
 
 
 def create_rn_expo() -> None:
+    with open(".gitignore", "a") as f:
+        f.write(".vscode")
     create_folder(rn_dirs)
     for v in rn_files:
         v.create_file()

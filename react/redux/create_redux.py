@@ -5,7 +5,7 @@ from create_folder import create_folder
 
 def create_redux() -> None:
     os.path.isfile("index.tsx")
-    print(os.path.isfile("src/main.tsx"))
+    # print(os.path.isfile("src/main.tsx"))
     create_folder(["src/redux", "src/types"])
     for f in get_redux_files():
         f.create_file()
