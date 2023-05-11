@@ -3,7 +3,16 @@ import path
 
 folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
-from typing import Any, Dict, List, Literal, TypedDict, NotRequired, Tuple
+from typing import (
+    Any,
+    Dict,
+    List,
+    Literal,
+    TypedDict,
+    NotRequired,
+    Tuple,
+    Union,
+)
 
 
 Watch_File_Kind = Literal[
@@ -32,7 +41,17 @@ Polling_Watch_Kind = Literal[
 Severity = Literal[0, 1, 2]
 StringSeverity = Literal["off", "warn", "error"]
 RuleLevel = Severity | StringSeverity
-RuleEntry = Tuple[RuleLevel, ...] | Tuple[RuleLevel] | Tuple[RuleLevel, Any]
+A = Tuple[RuleLevel]
+B = Tuple[RuleLevel, Any]
+# RuleEntry = Union[Tuple[RuleLevel, Any], Tuple[RuleLevel]]
+RuleEntry = (
+    Tuple[RuleLevel, ...]
+    | Tuple[RuleLevel]
+    # | Tuple[RuleLevel, Any]
+    # | Tuple[RuleLevel, Dict[str, Any]]
+)
+
+
 # RuleEntry = RuleLevel | List[RuleLevel | Any]
 Default_Rules = Literal[
     "accessor-pairs",
@@ -360,7 +379,7 @@ class Parser_Options(TypedDict, total=False):
     tsconfigRootDir: str
 
 
-class _ESLINT_TYPE(TypedDict):
+class _ESLINT_TYPE(TypedDict, total=False):
     env: Dict[str, bool]
     extends: List[str]
     globals: Globals
@@ -377,7 +396,7 @@ class _ESLINT_TYPE(TypedDict):
     settings: Dict[str, Any]
 
 
-class ESLINT_TYPE(_ESLINT_TYPE, total=False):
+class ESLINT_TYPE(_ESLINT_TYPE, total=True):
     pass
     # env: Dict[str, bool]
     # extends: List[str]
@@ -444,6 +463,7 @@ Jsx_Emit = Literal[
 Module_Detection_Kind = Literal["legacy", "auto", "force"]
 
 New_Line_Kind = Literal["crlf", "lf"]
+
 
 class _COMPILER_OPTIONS(TypedDict):
     allowArbitraryExtensions: bool
@@ -675,7 +695,7 @@ class Watch_Options(TypedDict, total=False):
     excludeFiles: List[str]
 
 
-class _TS_CONFIG_TYPE(TypedDict):
+class TS_CONFIG_TYPE_REQUIRED(TypedDict):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS
@@ -688,7 +708,7 @@ class _TS_CONFIG_TYPE(TypedDict):
     watchOptions: Watch_Options
 
 
-class TS_CONFIG_TYPE(_TS_CONFIG_TYPE, total=False):
+class TS_CONFIG_TYPE(TS_CONFIG_TYPE_REQUIRED, total=False):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS
@@ -699,3 +719,29 @@ class TS_CONFIG_TYPE(_TS_CONFIG_TYPE, total=False):
     references: List[REFERENCES]
     typeAcquisition: Type_Acquisition
     watchOptions: Watch_Options
+
+
+# qq: B = (
+#     2,
+#     {
+#         "arrowParens": "avoid",
+#         "bracketSameLine": True,
+#         "endOfLine": "auto",
+#         "singleAttributePerLine": True,
+#     },
+# )
+
+# hh = {"prettier/prettier": qq}
+
+# hh["prettier/prettier"][1]
+
+# aa: Rules = {"prettier/prettier": qq}
+
+# if len(aa["prettier/prettier"]) == 2:
+#     aa["prettier/prettier"][1]
+
+
+# MyTuple = Union[Tuple[int], Tuple[int, str]]
+
+# tuple1: MyTuple = (10,)
+# tuple2: MyTuple = (20, "Hello")

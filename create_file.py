@@ -138,7 +138,7 @@ class ESLINT_RC_JSON(JSON_File):
 
 
 class SETTINGS_JSON(Any_File):
-    def __init__(self, contents: Dict) -> None:
+    def __init__(self, contents: Dict[str, Any]) -> None:
         super().__init__("settings", "json", ".vscode/", contents)
 
     def create_file(self) -> None:

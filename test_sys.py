@@ -1,7 +1,7 @@
 import sys
 
 
-def test() -> None:
+def test():
     print(sys.argv)
     # print(sys.argv[1])
 

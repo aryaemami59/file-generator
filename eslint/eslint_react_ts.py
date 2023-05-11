@@ -164,15 +164,20 @@ if "plugins" in eslint_react_ts:
     eslint_react_ts["plugins"].extend(["jsx-a11y"])
     # eslint_react_ts["plugins"].extend(["react-redux", "jsx-a11y"])
 if "rules" in eslint_react_ts:
-    eslint_react_ts["rules"].update(eslint_react_ts_rules)  # type: ignore
+    eslint_react_ts["rules"] = {
+        **eslint_react_ts["rules"],
+        **eslint_react_ts_rules,
+    }
+    # eslint_react_ts["rules"].update(eslint_react_ts_rules)
     if (
         "prettier/prettier" in eslint_react_ts["rules"]
-        and type(eslint_react_ts["rules"]["prettier/prettier"]) is list
-        and type(eslint_react_ts["rules"]["prettier/prettier"][1]) is dict
+        and type(eslint_react_ts["rules"]["prettier/prettier"]) is tuple
+        and len(eslint_react_ts["rules"]["prettier/prettier"]) == 2
     ):
-        eslint_react_ts["rules"]["prettier/prettier"][1][
-            "parser"
-        ] = "typescript"
+        if type(eslint_react_ts["rules"]["prettier/prettier"][1]) is dict:
+            eslint_react_ts["rules"]["prettier/prettier"][1][
+                "parser"
+            ] = "typescript"
 eslint_react_ts["settings"] = {"react": {"version": "detect"}}
 
 eslintignore_react = """node_modules
