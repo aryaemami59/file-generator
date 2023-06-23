@@ -4,16 +4,17 @@ from create_file import TS_CONFIG_JSON
 ts_config = TS_CONFIG_JSON(
     {
         "compilerOptions": {
-            "target": "ES2022",
-            "module": "ES2022",
-            "moduleResolution": "node",
-            "resolveJsonModule": True,
+            "target": "ESNext",
+            "module": "ESNext",
+            "moduleResolution": "Node",
             "esModuleInterop": True,
             "forceConsistentCasingInFileNames": True,
             "strict": True,
-            "noUnusedLocals": True,
-            "noUnusedParameters": True,
+            "noEmit": True,
+            "noImplicitAny": True,
+            "isolatedModules": True,
+            "resolveJsonModule": True,
             "skipLibCheck": True,
-        }
+        },
     },
 )

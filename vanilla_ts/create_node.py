@@ -9,7 +9,11 @@ from create_files_script_ts import script_ts
 
 ts_config_node = ts_config
 
-ts_config_node.contents["ts-node"] = {"esm": True}
+ts_config_node.contents["ts-node"] = {
+    "esm": True,
+    "transpileOnly": True,
+    "experimentalSpecifierResolution": "node",
+}
 
 files = (script_ts, ts_config_node)
 

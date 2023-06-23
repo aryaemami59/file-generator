@@ -14,6 +14,8 @@ from typing import (
     Union,
 )
 
+Any_Dict = Dict[str, Any]
+
 
 Watch_File_Kind = Literal[
     "FixedPollingInterval",
@@ -393,7 +395,7 @@ class _ESLINT_TYPE(TypedDict, total=False):
     reportUnusedDisableDirectives: bool
     root: bool
     rules: Rules
-    settings: Dict[str, Any]
+    settings: Any_Dict
 
 
 class ESLINT_TYPE(_ESLINT_TYPE, total=True):
@@ -445,11 +447,11 @@ Module_Kind = Literal[
 ]
 
 Module_Resolution_Kind = Literal[
-    "bundler",
-    "classic",
-    "node",
-    "node16",
-    "nodenext",
+    "Bundler",
+    "Classic",
+    "Node",
+    "Node16",
+    "NodeNext",
 ]
 
 Jsx_Emit = Literal[
@@ -695,7 +697,40 @@ class Watch_Options(TypedDict, total=False):
     excludeFiles: List[str]
 
 
-class TS_CONFIG_TYPE_REQUIRED(TypedDict):
+ExperimentalSpecifierResolution = Literal["explicit", "node"]
+
+
+class TS_NODE_CONFIG(TypedDict, total=False):
+    transpiler: Tuple[str, Any_Dict] | str
+    compiler: str
+    compilerHost: bool
+    compilerOptions: COMPILER_OPTIONS
+    emit: bool
+    esm: bool
+    experimentalReplAwait: bool
+    experimentalResolver: bool
+    experimentalSpecifierResolution: ExperimentalSpecifierResolution
+    experimentalTsImportSpecifiers: bool
+    files: bool
+    ignore: List[str]
+    ignoreDiagnostics: List[float | str]
+    logError: bool
+    moduleTypes: Dict[str, Any]
+    preferTsExts: bool
+    pretty: bool
+    require: List[str]
+    scope: bool
+    scopeDir: str
+    skipIgnore: bool
+    swc: bool
+    transpileOnly: bool
+    typeCheck: bool
+
+
+TS_NODE = TypedDict("TS_NODE", {"ts-node": TS_NODE_CONFIG}, total=False)
+
+
+class TS_CONFIG_TYPE_REQUIRED(TS_NODE):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS
@@ -712,36 +747,10 @@ class TS_CONFIG_TYPE(TS_CONFIG_TYPE_REQUIRED, total=False):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS
-    files: List[str]
-    include: List[str]
     exclude: List[str]
     extends: List[str] | str
+    files: List[str]
+    include: List[str]
     references: List[REFERENCES]
     typeAcquisition: Type_Acquisition
     watchOptions: Watch_Options
-
-
-# qq: B = (
-#     2,
-#     {
-#         "arrowParens": "avoid",
-#         "bracketSameLine": True,
-#         "endOfLine": "auto",
-#         "singleAttributePerLine": True,
-#     },
-# )
-
-# hh = {"prettier/prettier": qq}
-
-# hh["prettier/prettier"][1]
-
-# aa: Rules = {"prettier/prettier": qq}
-
-# if len(aa["prettier/prettier"]) == 2:
-#     aa["prettier/prettier"][1]
-
-
-# MyTuple = Union[Tuple[int], Tuple[int, str]]
-
-# tuple1: MyTuple = (10,)
-# tuple2: MyTuple = (20, "Hello")
