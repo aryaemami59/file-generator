@@ -121,7 +121,7 @@ class TSConfigCompilerOptions:
     checkJs: Optional[bool] = None
     """Enable constraints that allow a TypeScript project to be used with project references."""
     composite: Optional[bool] = None
-    """Generate .d.ts files from TypeScript and JavaScript files in your project."""
+    """Generate .d.ts files from my_typescript and JavaScript files in your project."""
     declaration: Optional[bool] = None
     """Specify the output directory for generated declaration files."""
     declarationDir: Optional[str] = None
@@ -386,7 +386,7 @@ class TsNodeCompilerOptions:
     checkJs: Optional[bool] = None
     """Enable constraints that allow a TypeScript project to be used with project references."""
     composite: Optional[bool] = None
-    """Generate .d.ts files from TypeScript and JavaScript files in your project."""
+    """Generate .d.ts files from my_typescript and JavaScript files in your project."""
     declaration: Optional[bool] = None
     """Specify the output directory for generated declaration files."""
     declarationDir: Optional[str] = None

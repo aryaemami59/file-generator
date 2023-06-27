@@ -1,5 +1,5 @@
 import json
-from my_types import ESLINT_TYPE
+from my_types.my_types import ESLINT_TYPE
 
 
 def add_redux_eslint() -> None:

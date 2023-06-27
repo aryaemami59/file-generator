@@ -5,7 +5,7 @@ folder = path.Path(__file__).abspath()
 sys.path.append(folder.parent.parent)
 
 from ts_config import ts_config
-from create_files_script_ts import script_ts
+from create_files_script_ts import index_ts
 
 ts_config_node = ts_config
 
@@ -15,7 +15,7 @@ ts_config_node.contents["ts-node"] = {
     "experimentalSpecifierResolution": "node",
 }
 
-files = (script_ts, ts_config_node)
+files = (index_ts, ts_config_node)
 
 if __name__ == "__main__":
     for v in files:

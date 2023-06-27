@@ -87,7 +87,7 @@
 # }
 
 from eslint_vanilla import ESLINT_VANILLA
-from my_types import Rules
+from my_types.my_types import Rules
 
 eslint_react_ts = ESLINT_VANILLA.copy()
 

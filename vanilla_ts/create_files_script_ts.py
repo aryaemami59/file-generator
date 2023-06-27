@@ -34,8 +34,8 @@ index_html = Index_HTML_File(
 )
 
 
-script_ts = TS_File(
-    "script",
+index_ts = TS_File(
+    "index",
     "",
     """export type AnyObject = Record<string, unknown>;
 
@@ -43,7 +43,7 @@ export {};
 """,
 )
 
-files = (index_html, styles_css, script_ts, ts_config)
+files = (index_html, styles_css, index_ts, ts_config)
 
 
 if __name__ == "__main__":

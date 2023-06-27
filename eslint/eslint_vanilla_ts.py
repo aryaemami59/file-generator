@@ -1,5 +1,5 @@
-from my_types import Rules, ESLINT_TYPE
-from eslint_vanilla import ESLINT_VANILLA, eslintignore
+from my_types.my_types import Rules, ESLINT_TYPE
+from eslint_vanilla import ESLINT_VANILLA
 
 eslint_vanilla_ts: ESLINT_TYPE = ESLINT_VANILLA.copy()
 
@@ -32,6 +32,8 @@ eslint_vanilla_ts_rules: Rules = {
 
 if "env" in eslint_vanilla_ts:
     del eslint_vanilla_ts["env"]["es2022"]
+    eslint_vanilla_ts["env"]["node"] = True
+    eslint_vanilla_ts["env"]["shared-node-browser"] = True
 
 if "extends" in eslint_vanilla_ts:
     eslint_vanilla_ts["extends"].remove("airbnb-base")
@@ -48,8 +50,11 @@ if "extends" in eslint_vanilla_ts:
         ]
     )
 
+eslint_vanilla_ts["parser"] = "@typescript-eslint/parser"
+eslint_vanilla_ts["ignorePatterns"] = ["node_modules", ".vscode"]
+
 if "parserOptions" in eslint_vanilla_ts:
-    eslint_vanilla_ts["parserOptions"]["project"] = ["./tsconfig.json"]
+    eslint_vanilla_ts["parserOptions"]["project"] = True
     eslint_vanilla_ts["parserOptions"]["tsconfigRootDir"] = "./"
 if "plugins" in eslint_vanilla_ts:
     eslint_vanilla_ts["plugins"].insert(0, "@typescript-eslint")
@@ -70,4 +75,4 @@ if "rules" in eslint_vanilla_ts:
                 "parser"
             ] = "typescript"
 
-eslintignore_ts = eslintignore
+# eslintignore_ts = eslintignore

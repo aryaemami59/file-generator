@@ -1,9 +1,10 @@
 import sys
 from json import dump
 from write_to_all_files import write_to_all_files
-from eslint.my_types import ESLINT_TYPE, TS_CONFIG_TYPE
+from my_types.my_types import ESLINT_TYPE, TS_CONFIG_TYPE
 from typing import Literal, TypedDict, Any, Dict
 from create_folder import create_folder
+
 # from eslint.kk import TSConfig
 
 ext_type = Literal["ts", "js", "json", "html", "css", "tsx", "jsx", "py", ""]

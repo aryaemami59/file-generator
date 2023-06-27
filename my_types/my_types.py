@@ -2,7 +2,7 @@ import sys
 import path
 
 folder = path.Path(__file__).abspath()
-sys.path.append(folder.parent.parent)
+sys.path.append(folder.parent)
 from typing import (
     Any,
     Dict,
@@ -41,20 +41,13 @@ Polling_Watch_Kind = Literal[
 ]
 
 Severity = Literal[0, 1, 2]
+
 StringSeverity = Literal["off", "warn", "error"]
+
 RuleLevel = Severity | StringSeverity
-A = Tuple[RuleLevel]
-B = Tuple[RuleLevel, Any]
-# RuleEntry = Union[Tuple[RuleLevel, Any], Tuple[RuleLevel]]
-RuleEntry = (
-    Tuple[RuleLevel, ...]
-    | Tuple[RuleLevel]
-    # | Tuple[RuleLevel, Any]
-    # | Tuple[RuleLevel, Dict[str, Any]]
-)
 
+RuleEntry = Tuple[RuleLevel, ...] | Tuple[RuleLevel]
 
-# RuleEntry = RuleLevel | List[RuleLevel | Any]
 Default_Rules = Literal[
     "accessor-pairs",
     "array-bracket-newline",
@@ -324,8 +317,8 @@ Default_Rules = Literal[
     "yield-star-spacing",
     "yoda",
 ]
-Rules = Dict[str, RuleEntry]
 
+Rules = Dict[str, RuleEntry]
 
 Ecma_Version = Literal[
     3,
@@ -376,12 +369,12 @@ class Config_Override(TypedDict):
 class Parser_Options(TypedDict, total=False):
     ecmaFeatures: ECMA_FEATURES
     ecmaVersion: Ecma_Version
-    project: List[str]
+    project: List[str] | bool
     sourceType: Source_Type
     tsconfigRootDir: str
 
 
-class _ESLINT_TYPE(TypedDict, total=False):
+class ESLINT_TYPE(TypedDict, total=False):
     env: Dict[str, bool]
     extends: List[str]
     globals: Globals
@@ -398,25 +391,8 @@ class _ESLINT_TYPE(TypedDict, total=False):
     settings: Any_Dict
 
 
-class ESLINT_TYPE(_ESLINT_TYPE, total=True):
-    pass
-    # env: Dict[str, bool]
-    # extends: List[str]
-    # globals: Globals
-    # ignorePatterns: str | List[str]
-    # noInlineConfig: bool
-    # overrides: List[str]
-    # parser: Literal["@typescript-eslint/parser"]
-    # parserOptions: Parser_Options
-    # plugins: List[str]
-    # processor: str
-    # reportUnusedDisableDirectives: bool
-    # root: bool
-    # rules: Rules
-    # settings: Dict[str, Any]
-
-
 ImportsNotUsedAsValues = Literal["remove", "preserve", "error"]
+
 Script_Target = Literal[
     "ES3",
     "ES5",
@@ -467,105 +443,7 @@ Module_Detection_Kind = Literal["legacy", "auto", "force"]
 New_Line_Kind = Literal["crlf", "lf"]
 
 
-class _COMPILER_OPTIONS(TypedDict):
-    allowArbitraryExtensions: bool
-    allowImportingTsExtensions: bool
-    allowJs: bool
-    allowSyntheticDefaultImports: bool
-    allowUmdGlobalAccess: bool
-    allowUnreachableCode: bool
-    allowUnusedLabels: bool
-    alwaysStrict: bool
-    assumeChangesOnlyAffectDirectDependencies: bool
-    baseUrl: str
-    charset: str
-    checkJs: bool
-    composite: bool
-    customConditions: List[str]
-    declaration: bool
-    declarationDir: str
-    declarationMap: bool
-    emitBOM: bool
-    emitDeclarationOnly: bool
-    emitDecoratorMetadata: bool
-    esModuleInterop: bool
-    exactOptionalPropertyTypes: bool
-    experimentalDecorators: bool
-    forceConsistentCasingInFileNames: bool
-    ignoreDeprecations: str
-    importHelpers: bool
-    importsNotUsedAsValues: ImportsNotUsedAsValues
-    incremental: bool
-    inlineSourceMap: bool
-    inlineSources: bool
-    isolatedModules: bool
-    jsx: Jsx_Emit
-    jsxFactory: str
-    jsxFragmentFactory: str
-    jsxImportSource: str
-    keyofStringsOnly: bool
-    lib: List[str]
-    locale: str
-    mapRoot: str
-    maxNodeModuleJsDepth: float
-    module: Module_Kind
-    moduleDetection: Module_Detection_Kind
-    moduleResolution: Module_Resolution_Kind
-    moduleSuffixes: List[str]
-    newLine: New_Line_Kind
-    noEmit: bool
-    noEmitHelpers: bool
-    noEmitOnError: bool
-    noErrorTruncation: bool
-    noFallthroughCasesInSwitch: bool
-    noImplicitAny: bool
-    noImplicitOverride: bool
-    noImplicitReturns: bool
-    noImplicitThis: bool
-    noImplicitUseStrict: bool
-    noLib: bool
-    noResolve: bool
-    noStrictGenericChecks: bool
-    noUncheckedIndexedAccess: bool
-    noUnusedLocals: bool
-    noUnusedParameters: bool
-    out: str
-    outDir: str
-    outFile: str
-    preserveConstEnums: bool
-    preserveSymlinks: bool
-    preserveValueImports: bool
-    project: str
-    reactNamespace: str
-    removeComments: bool
-    resolveJsonModule: bool
-    resolvePackageJsonExports: bool
-    resolvePackageJsonImports: bool
-    rootDir: str
-    rootDirs: List[str]
-    skipDefaultLibCheck: bool
-    skipLibCheck: bool
-    sourceMap: bool
-    sourceRoot: str
-    strict: bool
-    strictBindCallApply: bool
-    strictFunctionTypes: bool
-    strictNullChecks: bool
-    strictPropertyInitialization: bool
-    stripInternal: bool
-    suppressExcessPropertyErrors: bool
-    suppressImplicitAnyIndexErrors: bool
-    target: Script_Target
-    traceResolution: bool
-    tsBuildInfoFile: str
-    types: List[str]
-    typeRoots: List[str]
-    useDefineForClassFields: bool
-    useUnknownInCatchVariables: bool
-    verbatimModuleSyntax: bool
-
-
-class COMPILER_OPTIONS(_COMPILER_OPTIONS, total=False):
+class COMPILER_OPTIONS(TypedDict, total=False):
     allowArbitraryExtensions: bool
     allowImportingTsExtensions: bool
     allowJs: bool
@@ -730,20 +608,7 @@ class TS_NODE_CONFIG(TypedDict, total=False):
 TS_NODE = TypedDict("TS_NODE", {"ts-node": TS_NODE_CONFIG}, total=False)
 
 
-class TS_CONFIG_TYPE_REQUIRED(TS_NODE):
-    buildOptions: Build_Options
-    compileOnSave: bool
-    compilerOptions: COMPILER_OPTIONS
-    files: List[str]
-    include: List[str]
-    exclude: List[str]
-    extends: List[str] | str
-    references: List[REFERENCES]
-    typeAcquisition: Type_Acquisition
-    watchOptions: Watch_Options
-
-
-class TS_CONFIG_TYPE(TS_CONFIG_TYPE_REQUIRED, total=False):
+class TS_CONFIG_TYPE(TS_NODE, total=False):
     buildOptions: Build_Options
     compileOnSave: bool
     compilerOptions: COMPILER_OPTIONS

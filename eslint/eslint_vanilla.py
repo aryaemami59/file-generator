@@ -77,7 +77,7 @@
 #     rules: NotRequired[Rules]
 
 
-from my_types import ESLINT_TYPE
+from my_types.my_types import ESLINT_TYPE
 
 
 ESLINT_VANILLA: ESLINT_TYPE = {
@@ -94,15 +94,7 @@ ESLINT_VANILLA: ESLINT_TYPE = {
     "rules": {
         "no-console": (0,),
         "no-param-reassign": (2, {"props": False}),
-        "prefer-arrow-functions/prefer-arrow-functions": (
-            2,
-            {
-                "classPropertiesAllowed": False,
-                "disallowPrototype": True,
-                "returnStyle": "unchanged",
-                "singleReturnOnly": False,
-            },
-        ),
+        "prefer-arrow-functions/prefer-arrow-functions": (2,),
         "prettier/prettier": (
             2,
             {
